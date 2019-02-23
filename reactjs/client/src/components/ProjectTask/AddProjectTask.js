@@ -1,14 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { addProjectTask } from "../../actions/projectTaskActions";
-import classnames from "classnames";
 
 class AddProjectTask extends Component {
-
   render() {
-    const { errors } = this.state;
     return (
       <div className="addProjectTask">
         <div className="container">
@@ -20,37 +14,26 @@ class AddProjectTask extends Component {
               <h4 className="display-4 text-center">
                 Add /Update Project Task
               </h4>
-              <form onSubmit={this.onSubmit}>
+              <form>
                 <div className="form-group">
                   <input
                     type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.summary
-                    })}
+                    className="form-control form-control-lg"
                     name="summary"
-                    value={this.state.summary}
                     placeholder="Project Task summary"
-                    onChange={this.onChange}
                   />
-                  {errors.summary && (
-                    <div className="invalid-feedback">{errors.summary}</div>
-                  )}
                 </div>
                 <div className="form-group">
                   <textarea
                     className="form-control form-control-lg"
                     placeholder="Acceptance Criteria"
                     name="acceptanceCriteria"
-                    value={this.state.acceptanceCriteria}
-                    onChange={this.onChange}
                   />
                 </div>
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
                     name="status"
-                    value={this.state.status}
-                    onChange={this.onChange}
                   >
                     <option value="">Select Status</option>
                     <option value="TO_DO">TO DO</option>
@@ -71,4 +54,4 @@ class AddProjectTask extends Component {
   }
 }
 
-export default AddProjectTask
+export default AddProjectTask;
