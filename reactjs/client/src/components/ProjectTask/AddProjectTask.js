@@ -1,12 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux'
+import { addProjectTask } from "../../actions/projectTaskActions";
+import classnames from 'classnames'
 
 class AddProjectTask extends Component {
 
   state = {
     summary: '',
     acceptanceCriteria: '',
-    status: ''
+    status: '',
+    errors: {}
+  }
+
+  componentWillReceiveProps = nextProps => {
+
   }
 
   onChange = e => {
@@ -17,7 +25,7 @@ class AddProjectTask extends Component {
     e.preventDefault()
     const { summary, acceptanceCriteria, status } = this.state
     const newProjectTask = { summary, acceptanceCriteria, status }
-    console.log(newProjectTask)
+    this.props.addProjectTask(newProjectTask, this.props.history)
   }
 
   render() {
@@ -65,9 +73,7 @@ class AddProjectTask extends Component {
                     <option value="DONE">DONE</option>
                   </select>
                 </div>
-                <input
-                  type="submit"
-                  className="btn btn-primary btn-block mt-4"
+                <input type="submit" className="btn btn-primary btn-block mt-4"
                 />
               </form>
             </div>
@@ -78,4 +84,8 @@ class AddProjectTask extends Component {
   }
 }
 
-export default AddProjectTask;
+const mapStateToProps = state => ({
+  errors: state.errors
+})
+
+export default connect(null, { addProjectTask })(AddProjectTask);
