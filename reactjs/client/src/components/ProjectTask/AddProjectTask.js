@@ -2,6 +2,24 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class AddProjectTask extends Component {
+
+  state = {
+    summary: '',
+    acceptanceCriteria: '',
+    status: ''
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  onSubmit = e => {
+    e.preventDefault()
+    const { summary, acceptanceCriteria, status } = this.state
+    const newProjectTask = { summary, acceptanceCriteria, status }
+    console.log(newProjectTask)
+  }
+
   render() {
     return (
       <div className="addProjectTask">
@@ -14,13 +32,15 @@ class AddProjectTask extends Component {
               <h4 className="display-4 text-center">
                 Add /Update Project Task
               </h4>
-              <form>
+              <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
                     className="form-control form-control-lg"
                     name="summary"
+                    value={this.state.summary}
                     placeholder="Project Task summary"
+                    onChange={this.onChange}
                   />
                 </div>
                 <div className="form-group">
@@ -28,12 +48,16 @@ class AddProjectTask extends Component {
                     className="form-control form-control-lg"
                     placeholder="Acceptance Criteria"
                     name="acceptanceCriteria"
+                    value={this.state.acceptanceCriteria}
+                    onChange={this.onChange}
                   />
                 </div>
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
                     name="status"
+                    value={this.state.status}
+                    onChange={this.onChange}
                   >
                     <option value="">Select Status</option>
                     <option value="TO_DO">TO DO</option>
