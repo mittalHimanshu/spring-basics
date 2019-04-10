@@ -22,11 +22,11 @@ public class ProjectTaskController {
     private ProjectTaskService projectTaskService;
 
     @PostMapping("")
-    public ResponseEntity<?> addPTToBoard(@Valid @RequestBody ProjectTask projectTask, BindingResult result){
+    public ResponseEntity<?> addPTToBoard(@Valid @RequestBody ProjectTask projectTask, BindingResult result) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
-            for(FieldError err: result.getFieldErrors()){
+            for (FieldError err : result.getFieldErrors()) {
                 errorMap.put(err.getField(), err.getDefaultMessage());
             }
             return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
@@ -37,18 +37,18 @@ public class ProjectTaskController {
     }
 
     @GetMapping("/all")
-    public Iterable<ProjectTask> getAllPTs(){
+    public Iterable<ProjectTask> getAllPTs() {
         return projectTaskService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getPTByid(@PathVariable Long id){
+    public ResponseEntity<?> getPTByid(@PathVariable Long id) {
         ProjectTask projectTask = projectTaskService.findById(id);
         return new ResponseEntity<ProjectTask>(projectTask, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePT(@PathVariable Long id){
+    public ResponseEntity<?> deletePT(@PathVariable Long id) {
         projectTaskService.delete(id);
         return new ResponseEntity<String>("Deleted", HttpStatus.OK);
     }

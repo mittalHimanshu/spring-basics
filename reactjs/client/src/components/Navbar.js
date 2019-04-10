@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Navbar() {
-    return(
+    return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
             <div className="container">
                 <a className="navbar-brand" href="/">

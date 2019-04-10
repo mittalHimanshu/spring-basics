@@ -20,14 +20,14 @@ public class CategoryController {
     private GifRepository gifRepository;
 
     @RequestMapping("/categories")
-    public String listCategories(ModelMap modelMap){
+    public String listCategories(ModelMap modelMap) {
         List<Category> categories = categoryRepository.getAllCategories();
         modelMap.put("categories", categories);
         return "categories";
     }
 
     @RequestMapping("/category/{id}")
-    public String category(@PathVariable int id, ModelMap modelMap){
+    public String category(@PathVariable int id, ModelMap modelMap) {
         Category category = categoryRepository.findById(id);
         modelMap.put("category", category);
         List<Gif> gifs = gifRepository.findByCategoryId(id);

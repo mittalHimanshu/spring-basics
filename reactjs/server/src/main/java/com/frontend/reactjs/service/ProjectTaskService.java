@@ -11,9 +11,9 @@ public class ProjectTaskService {
     @Autowired
     private ProjectTaskRepository projectTaskRepository;
 
-    public ProjectTask saveOrUpdateProjectTask(ProjectTask projectTask){
+    public ProjectTask saveOrUpdateProjectTask(ProjectTask projectTask) {
 
-        if(projectTask.getStatus() == null || projectTask.getStatus() == ""){
+        if (projectTask.getStatus() == null || projectTask.getStatus() == "") {
             projectTask.setStatus("TO_DO");
         }
 
@@ -24,11 +24,11 @@ public class ProjectTaskService {
         return projectTaskRepository.findAll();
     }
 
-    public ProjectTask findById(Long id){
+    public ProjectTask findById(Long id) {
         return projectTaskRepository.getById(id);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         ProjectTask projectTask = findById(id);
         projectTaskRepository.delete(projectTask);
     }
