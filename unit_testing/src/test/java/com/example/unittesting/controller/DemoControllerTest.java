@@ -2,6 +2,7 @@ package com.example.unittesting.controller;
 
 import com.example.unittesting.service.HelloService;
 import org.hamcrest.Matchers;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,5 +49,21 @@ public class DemoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", Matchers.is("Himanshu")))
                 .andExpect(jsonPath("$.rollNo", Matchers.is("1610991368")));
+    }
+
+    @Test
+    public void testPost() throws Exception {
+        String json = "{\n" +
+                "  \"name\": \"Himanshu Mittal\",\n" +
+                "  \"rollNo\": \"1610991368\"\n" +
+                "}";
+        
+        mockMvc.perform(post("/demo/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", Matchers.is("Himanshu Mittal")))
+                .andExpect(jsonPath("$.rollNo", Matchers.is("1610991368")));
+
     }
 }
