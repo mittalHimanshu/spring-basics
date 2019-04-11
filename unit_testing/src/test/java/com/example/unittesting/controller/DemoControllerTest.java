@@ -2,7 +2,6 @@ package com.example.unittesting.controller;
 
 import com.example.unittesting.service.HelloService;
 import org.hamcrest.Matchers;
-import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +56,7 @@ public class DemoControllerTest {
                 "  \"name\": \"Himanshu Mittal\",\n" +
                 "  \"rollNo\": \"1610991368\"\n" +
                 "}";
-        
+
         mockMvc.perform(post("/demo/post")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
