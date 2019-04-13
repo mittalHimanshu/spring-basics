@@ -1,42 +1,60 @@
 package com.example.auth.model;
 
-import lombok.Builder;
-import lombok.Data;
-import org.hibernate.validator.constraints.Length;
-
+import lombok.*;
+import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "username"
+        }),
+        @UniqueConstraint(columnNames = {
+                "email"
+        })
+})
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
-    private int id;
-    @Column(name = "email")
-    @Email(message = "please provide a valid email")
-    @NotEmpty(message = "please provide an email")
-    private String email;
-    @Column(name = "password")
-    @Length(min = 5, message = "password should have at least 5 chars")
-    @NotEmpty(message = "please provide a password")
-    private String password;
-    @Column(name = "name")
-    @NotEmpty(message =  "please enter yoyr name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    @Size(max = 40)
     private String name;
-    @Column(name = "last_name")
-    @NotEmpty(message = "please provide your last name")
-    private String lastName;
-    @Column(name = "active")
-    private int active;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+
+    @NotBlank
+    @Size(max = 15)
+    private String username;
+
+    @NaturalId
+    @NotBlank
+    @Size(max = 40)
+    @Email
+    private String email;
+
+    @NotBlank
+    @Size(max = 100)
+    private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    public User(@NotBlank @Size(max = 40) String name, @NotBlank @Size(max = 15) String username, @NotBlank @Size(max = 40) @Email String email, @NotBlank @Size(max = 100) String password) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }
