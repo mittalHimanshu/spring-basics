@@ -12,6 +12,8 @@ import java.util.Map;
 @RestControllerEndpoint(id = "custom-rest-endpoint")
 public class ActuatorController {
 
+    /* ========== Custom Metrics ============== */
+
     /**
      * custom actuator endpoint ---> http://localhost:8080/actuator/custom-rest-endpoint
      * it returns server date and time
