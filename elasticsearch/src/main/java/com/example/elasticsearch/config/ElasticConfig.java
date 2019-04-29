@@ -25,7 +25,6 @@ public class ElasticConfig {
     @Getter
     public int port;
 
-
     @Bean
     public Client client() throws Exception {
         return new PreBuiltTransportClient(Settings.EMPTY)
